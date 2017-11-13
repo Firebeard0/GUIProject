@@ -1,6 +1,69 @@
 package gui.view;
 
-public class GUIPanel
-{
+import javax.swing.JPanel;
+import gui.controller.GUIAppController;
+import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.SpringLayout;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class GUIPanel extends JPanel
+{
+	private GUIAppController appController;
+	private JButton firstButton;
+	private SpringLayout appLayout;
+
+	public GUIPanel(GUIAppController appController)
+	{
+		super();
+		this.appController = appController;
+		firstButton = new JButton("Click the Button");
+		appLayout = new SpringLayout();
+
+		setupPanel();
+		setupLayout();
+		setupListeners();
+	}
+
+	/**
+	 * used to add all components to the screen and install a layout manager. also
+	 * set color |:D
+	 */
+	private void setupPanel()
+	{
+		this.setBackground(Color.CYAN);
+		this.setLayout(appLayout);
+		this.add(firstButton);
+	}
+
+	private void setupLayout()
+	{
+		appLayout.putConstraint(SpringLayout.NORTH, firstButton, 93, SpringLayout.NORTH, this);
+		appLayout.putConstraint(SpringLayout.WEST, firstButton, 129, SpringLayout.WEST, this);
+		appLayout.putConstraint(SpringLayout.SOUTH, firstButton, -178, SpringLayout.SOUTH, this);
+		appLayout.putConstraint(SpringLayout.EAST, firstButton, -149, SpringLayout.EAST, this);
+
+	}
+
+	private void setupListeners()
+	{
+		firstButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				changeScreenColor();
+			}
+		});
+	}
+	
+	private void changeScreenColor()
+	{
+		int red = (int) (Math.random() * 256);
+		int green = (int) (Math.random() * 256);
+		int blue = (int) (Math.random() * 256);
+		
+		this.setBackground(new Color(red, green, blue));
+	}
 }
